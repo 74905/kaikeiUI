@@ -1,0 +1,35 @@
+body {
+  width: 285px;
+  padding: 5px 25px;
+}
+h1 {
+  font-size: 18pt;
+  font-weight: bold;
+  color: #888888;
+}
+.msg.err {
+  font-weight: bold;
+  color: #cc0033;
+}
+
+.buttonArea {
+  margin-top: 10px;
+  text-align: right;
+}
+button {
+  display: inline-block;
+  font-size: 10pt;
+  font-weight: bold;
+  color: #ffffff;
+  background: #888888;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.data tr:nth-child(2) th,
+.data tr:nth-child(2) td {
+  background: #3d7cce;
+}
+.data tr:nth-child(3) th,
+.data tr:nth-child(3) td {
+  background: #00896b;
+}
