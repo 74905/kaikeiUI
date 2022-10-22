@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import {FavoriteBox} from './FavoriteBox'
 import { useDisclosure } from '@chakra-ui/react'
+import { inpuctCheck } from '../atomFunction/inpuCheck';
 export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday,totalAmount}) => {
   //税金合計額出すためにどうしてもステート管理しなければならなかった
   const[rowAmountValue,setRwoAmountValue] = useState("0");
@@ -15,11 +16,16 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
     addForom["endDay"] = kaikeiday;
   },[kaikeiMonth])
    const inputMonth = (e)=>{
+    if(inpuctCheck(e)){
+      return
+    }
     addForom.month = e.target.value;
   }
   const inputDay = (e)=>{
+    if(inpuctCheck(e)){
+      return
+    }
     addForom.day = e.target.value
-    console.log(addForom)
   }
   const inputStartTrain = (e)=>{
     addForom.startTrain = e.target.value
@@ -38,6 +44,9 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
     addForom.days = e.target.value
   }
   const inputFee = (e)=>{
+    if(inpuctCheck(e)){
+      return
+    }
     addForom.fee = e.target.value
     if(addForom.tax === ""){
         return 
@@ -45,6 +54,9 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
     rowAmount();
   }
   const inputTax = (e)=>{
+    if(inpuctCheck(e)){
+      return
+    }
     addForom.tax = e.target.value
     if(addForom.fee === ""){
         return 
@@ -62,9 +74,9 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
   return (
 <>
 <div  class="khMap">
-    <KinputMonth type="text" name="month" class="month" maxlength="2" onChange={inputMonth}  />
+    <KinputMonth type="text" name="month" class="month" maxlength="2" onChange={inputMonth} maxLength="2"  />
     <label>月</label>
-    <KinputMonthDay type="text" name="day" class="day" maxlength="2" onChange={inputDay} />
+    <KinputMonthDay type="text" name="day" class="day" maxlength="2" onChange={inputDay} maxLength="2"  />
     <label>日</label>
     <br />
     <KinputBr class="br">区間</KinputBr>

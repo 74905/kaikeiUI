@@ -8,6 +8,12 @@ import {useRecoilValue} from 'recoil'
 import {grovalUserInfo } from '../recoilAtom/userAtom'
 import { v4 as uuidv4 } from 'uuid';
 import { memo } from 'react';
+import {
+  Alert,
+  AlertIcon,
+  useToast
+} from '@chakra-ui/react'
+import { BuckButton } from '../atomComponet/BuckButton';
 
 
 export const KaikeiInput = memo(() => {
@@ -37,6 +43,7 @@ const createdKaikeiObj = ()=>{
   const [totalValue,setTotalValue] = useState(0);
   const [selectValues] = useState([...Array(31)].map((_, i) => i + 1));
   const history = useHistory();
+  const toast = useToast()
 
   const ref = useRef();
 
@@ -50,6 +57,7 @@ const createdKaikeiObj = ()=>{
   useEffect(()=>{
     //いつか直す
     const timeObj = new Date();
+    // recoil管理でいいかも
     setKaikeiMonth(timeObj.getMonth()+1);
     setKaikeiDay(timeObj.getDate());
     scrollButtom();
@@ -66,7 +74,12 @@ const createdKaikeiObj = ()=>{
 
   const deleteForm = ()=>{
     if(forms.length === 3){
-        window.alert("これ以上削除出来ません")
+      toast({
+        title: `これ以上削除出来ません`,
+        status: 'warning',
+        position: 'top',
+        isClosable: true,
+      })
         return
     }
     setForms(forms.filter((form,index)=>(index !== forms.length - 1)))
@@ -87,7 +100,7 @@ return (
     })
 }
 <button onClick={()=>{ axios.post('http://localhost:8081/insertKaikei',forms).then(()=> console.log("成功")) }}>登録</button>
-<button onClick={()=>{ history.push('/select') }}>戻る</button>
+<BuckButton></BuckButton>
 <AddButton onClick={addform}>+</AddButton>
 <DeleteButton onClick={deleteForm}>-</DeleteButton>
 <div id="bottom-of-list" ref={ref}></div>

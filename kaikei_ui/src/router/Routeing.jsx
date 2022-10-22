@@ -4,6 +4,7 @@ import { KaikeiInput } from '../page/KaikeiInput'
 import { Login } from '../page/Login'
 import { Select } from '../page/Select'
 import { ChakraProvider } from '@chakra-ui/react'
+import { KadouSaki } from '../page/KadouSaki'
 
 export const Routeing = () => {
   return (
@@ -18,6 +19,9 @@ export const Routeing = () => {
     <ChakraProvider resetCSS={false}>
         <KaikeiInput></KaikeiInput>
     </ChakraProvider>
+    </Route>
+    <Route>
+        <KadouSaki path="/select/kadousaki"></KadouSaki>
     </Route>
    </Switch>
   )

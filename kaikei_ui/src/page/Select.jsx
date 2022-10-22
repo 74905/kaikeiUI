@@ -10,7 +10,7 @@ export const Select = () => {
 		<div  className="input">
 			<SelectInput>Input</SelectInput>
 			<SelectButton type="submit" name="selected" onClick={()=>{histroy.push("/select/kaikeiInput")}}>会計報告</SelectButton>
-			<SelectButton type="submit" name="selected" value="ksinput">稼働先経費申請</SelectButton>
+			<SelectButton type="submit" name="selected" value="ksinput" onClick={()=>{histroy.push("/select/kadousaki")}}>稼働先経費申請</SelectButton>
 		</div>
 		<div className="ref">
 			<SelectRef>Refer</SelectRef>
