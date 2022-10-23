@@ -1,16 +1,19 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
 import styled from "styled-components";
+import { useSetRecoilState } from 'recoil';
+import { isKadousakiInput } from '../recoilAtom/isKadousakiInput';
 
 export const Select = () => {
+    const iskaikeiFlg = useSetRecoilState(isKadousakiInput)
     const histroy = useHistory();
     return (
     <>
 	<SelectHeader><SelectHeaderA href="/">Select Content</SelectHeaderA></SelectHeader>
 		<div  className="input">
 			<SelectInput>Input</SelectInput>
-			<SelectButton type="submit" name="selected" onClick={()=>{histroy.push("/select/kaikeiInput")}}>会計報告</SelectButton>
-			<SelectButton type="submit" name="selected" value="ksinput" onClick={()=>{histroy.push("/select/kadousaki")}}>稼働先経費申請</SelectButton>
+			<SelectButton type="submit" name="selected" onClick={()=>{iskaikeiFlg(true); histroy.push("/select/kaikeiInput")}}>会計報告</SelectButton>
+			<SelectButton type="submit" name="selected" value="ksinput" onClick={()=>{iskaikeiFlg(false); histroy.push("/select/kadousaki")}}>稼働先経費申請</SelectButton>
 		</div>
 		<div className="ref">
 			<SelectRef>Refer</SelectRef>

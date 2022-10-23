@@ -2,18 +2,12 @@ import React, { useCallback, useEffect,useRef,useState } from 'react'
 import { KinputForm } from '../component/KinputForm';
 import axios from 'axios'
 import { KInputInfo } from '../component/KInputInfo';
-import styled from "styled-components";
-import { useHistory } from 'react-router-dom';
-import {useRecoilValue} from 'recoil'
-import {grovalUserInfo } from '../recoilAtom/userAtom'
 import { v4 as uuidv4 } from 'uuid';
 import { memo } from 'react';
-import {
-  Alert,
-  AlertIcon,
-  useToast
-} from '@chakra-ui/react'
 import { BuckButton } from '../atomComponet/BuckButton';
+import { useInputInfo } from '../atomFunction/useInputInfo';
+import { InputAddbutton } from '../atomComponet/InputAddbutton';
+import { InputDeleteButton } from '../atomComponet/InputDeleteButton';
 
 
 export const KaikeiInput = memo(() => {
@@ -36,14 +30,13 @@ const createdKaikeiObj = ()=>{
     kaikeiObj.id = uuidv4();
     return kaikeiObj
 }
-  const userDate = useRecoilValue(grovalUserInfo)
+  const userDate = useInputInfo()
   const [kaikeiMonth, setKaikeiMonth] = useState();
   const [kaikeiday,setKaikeiDay] = useState();
   const [forms,setForms] = useState([createdKaikeiObj(),createdKaikeiObj(),createdKaikeiObj()]);
   const [totalValue,setTotalValue] = useState(0);
   const [selectValues] = useState([...Array(31)].map((_, i) => i + 1));
-  const history = useHistory();
-  const toast = useToast()
+
 
   const ref = useRef();
 
@@ -64,27 +57,6 @@ const createdKaikeiObj = ()=>{
     console.log(forms)
   },[forms])
 
-  const addform = ()=>{
-    if(forms.length === 30){
-        window.alert("これ以上追加出来ません")
-        return
-    }
-    setForms([...forms,createdKaikeiObj()])
-  }
-
-  const deleteForm = ()=>{
-    if(forms.length === 3){
-      toast({
-        title: `これ以上削除出来ません`,
-        status: 'warning',
-        position: 'top',
-        isClosable: true,
-      })
-        return
-    }
-    setForms(forms.filter((form,index)=>(index !== forms.length - 1)))
-  }
-
   const totalAmount = ()=>{
     setTotalValue(forms.reduce((sum,form)=>{return  sum + form.rowAmount},0))
   }
@@ -101,34 +73,9 @@ return (
 }
 <button onClick={()=>{ axios.post('http://localhost:8081/insertKaikei',forms).then(()=> console.log("成功")) }}>登録</button>
 <BuckButton></BuckButton>
-<AddButton onClick={addform}>+</AddButton>
-<DeleteButton onClick={deleteForm}>-</DeleteButton>
+<InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdKaikeiObj}>+</InputAddbutton>
+<InputDeleteButton forms={forms} setForms={setForms}></InputDeleteButton>
 <div id="bottom-of-list" ref={ref}></div>
 </>
   )
 })
-
-const AddButton = styled.button`
-width: 28px;
-height: 28px;
-float: right;
-margin-top: -2px;
-font-size: 18px;
-font-weight: bold;
-color: #ffffff;
-background: #888888;
-border-radius: 15px;
-outline: none;
-`
-const DeleteButton = styled.button`
-width: 28px;
-height: 28px;
-float: right;
-margin-top: -2px;
-font-size: 18px;
-font-weight: bold;
-color: #ffffff;
-background: #888888;
-border-radius: 15px;
-outline: none;
-`

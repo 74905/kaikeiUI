@@ -1,10 +1,13 @@
 import React from 'react'
 import { memo } from 'react';
 import styled from "styled-components";
+import { isKadousakiInput } from '../recoilAtom/isKadousakiInput';
+import {useRecoilValue} from 'recoil'
 export const KInputInfo = memo(({kaikeiMonth,kaikeiday,userDate,totalValue}) => {
-  return (
+   const kaikeiFfg = useRecoilValue(isKadousakiInput)
+    return (
  <>
-    <KinputH1><KinputA href="/">Input "会計報告"</KinputA></KinputH1>
+    {kaikeiFfg ? <KinputH1><KinputA href="/">Input "会計報告"</KinputA></KinputH1> : <KinputH1><KinputA href="/">Input "稼働先経費申請"</KinputA></KinputH1> }
     <KinputTable>
     <tr>
         <KinputTh><label>氏名</label></KinputTh>

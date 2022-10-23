@@ -14,23 +14,38 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { BuckButton } from '../atomComponet/BuckButton';
+import { useInputInfo } from '../atomFunction/useInputInfo';
+import { InputAddbutton } from '../atomComponet/InputAddbutton';
 
 export const KadouSaki = () => {
-    const userDate = useRecoilValue(grovalUserInfo)
-    const [kaikeiMonth, setKaikeiMonth] = useState();
-    const [kaikeiday,setKaikeiDay] = useState();
-    const [totalValue,setTotalValue] = useState(0);
-
-    useEffect(()=>{
-        //いつか直す
-        const timeObj = new Date();
-        // recoil管理でいいかも
-        setKaikeiMonth(timeObj.getMonth()+1);
-        setKaikeiDay(timeObj.getDate());
-      },[])
+//登録する稼働先経費申請書
+const createdKaikeiObj = ()=>{
+    const kaikeiObj ={
+        id: "",
+        moth:"",
+        day: "",
+        startTrain: "",
+        endTrain: "",
+        tool: "",
+        way: "",
+        days: "",
+        pay: "",
+        tax: "",
+        rowAmount: 0,
+        remarks:""
+    }
+    kaikeiObj.id = uuidv4();
+    return kaikeiObj
+}
+    const [forms,setForms] = useState([createdKaikeiObj(),createdKaikeiObj(),createdKaikeiObj()])
+    const [userDate,kaikeiMonth,kaikeiday,totalValue,{setTotalValue}] = useInputInfo(forms)
   return (
     <>
     <KInputInfo kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} userDate={userDate} totalValue={totalValue}></KInputInfo>
+    {forms.map((form)=>{
+        return <p>{form.id}</p>
+    })}
+    <InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdKaikeiObj}></InputAddbutton>
     <BuckButton></BuckButton>
     </>
   )
