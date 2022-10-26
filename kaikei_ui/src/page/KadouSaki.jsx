@@ -4,18 +4,13 @@ import axios from 'axios'
 import { KInputInfo } from '../component/KInputInfo';
 import styled from "styled-components";
 import { useHistory } from 'react-router-dom';
-import {useRecoilValue} from 'recoil'
-import {grovalUserInfo } from '../recoilAtom/userAtom'
 import { v4 as uuidv4 } from 'uuid';
 import { memo } from 'react';
-import {
-  Alert,
-  AlertIcon,
-  useToast
-} from '@chakra-ui/react'
 import { BuckButton } from '../atomComponet/BuckButton';
 import { useInputInfo } from '../atomFunction/useInputInfo';
 import { InputAddbutton } from '../atomComponet/InputAddbutton';
+import { InputDeleteButton } from '../atomComponet/InputDeleteButton';
+import {KadousakiForm} from '../component/KadousakiForm'
 
 export const KadouSaki = () => {
 //登録する稼働先経費申請書
@@ -39,13 +34,21 @@ const createdKaikeiObj = ()=>{
 }
     const [forms,setForms] = useState([createdKaikeiObj(),createdKaikeiObj(),createdKaikeiObj()])
     const [userDate,kaikeiMonth,kaikeiday,totalValue,{setTotalValue}] = useInputInfo(forms)
+
+    const totalAmount = ()=>{
+      setTotalValue(forms.reduce((sum,form)=>{
+        return  sum + form.rowAmount
+      },0))
+    }
   return (
     <>
     <KInputInfo kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} userDate={userDate} totalValue={totalValue}></KInputInfo>
     {forms.map((form)=>{
-        return <p>{form.id}</p>
+        return <KadousakiForm key={form.id}addForom={form} userDate={userDate}
+        kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} totalAmount={totalAmount}></KadousakiForm>
     })}
     <InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdKaikeiObj}></InputAddbutton>
+    <InputDeleteButton forms={forms} setForms={setForms}></InputDeleteButton>
     <BuckButton></BuckButton>
     </>
   )

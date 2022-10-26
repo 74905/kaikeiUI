@@ -11,10 +11,10 @@ export const UserInfo = ({usersInfo}) => {
 		</tr>
 			{ usersInfo.map((userInfo,index)=>{
                 return(
-                <tr key={userInfo.id}>
+                <tr key={userInfo.docid}>
                 <LoginTd>{index === 0 ? "1:入力者" : "2:確認者"  }</LoginTd>
-                <LoginTd>{userInfo.id}</LoginTd>
-                <LoginTd>{userInfo.password}</LoginTd>
+                <LoginTd>{userInfo.userInfo.id}</LoginTd>
+                <LoginTd>{userInfo.userInfo.password}</LoginTd>
                 </tr>
                 )
             })

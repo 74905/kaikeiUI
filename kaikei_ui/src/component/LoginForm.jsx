@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import {grovalUserInfo } from '../recoilAtom/userAtom'
 import styled from "styled-components";
+import db from '../firebase'
+import { collection, getDocs, doc,query, where } from "firebase/firestore/lite";
 export const LoginForm = ({isformEnpty,setIsformEnpty}) => {
 const setUserDate = useSetRecoilState(grovalUserInfo)
 const [userId,setUserId ] = useState("");
@@ -16,14 +18,15 @@ const loginAction = () =>{
             setIsformEnpty(true)
             return
         }
-        axios.post('http://localhost:8081/loginInfo',{
-          id: userId,
-          password: userPassword  
-        }).then((resolve)=>{
-            console.log(resolve)
-            setUserDate(resolve.data)
+        //くそみたいな認証
+        const citiesRef = collection(db, "actusers");
+        const q = query(citiesRef, where("id", "==", userId));
+        getDocs(q).then((querySnapShot)=>{
+            querySnapShot.forEach((doc)=>{
+                setUserDate(doc.data())
+            })
             history.push("/select")
-        }) 
+        })
     }
   return (
     <>

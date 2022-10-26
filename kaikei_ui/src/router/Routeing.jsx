@@ -21,7 +21,9 @@ export const Routeing = () => {
     </ChakraProvider>
     </Route>
     <Route>
+       <ChakraProvider resetCSS={false}>
         <KadouSaki path="/select/kadousaki"></KadouSaki>
+        </ChakraProvider>
     </Route>
    </Switch>
   )

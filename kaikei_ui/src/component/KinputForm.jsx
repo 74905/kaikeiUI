@@ -6,6 +6,8 @@ import { inpuctCheck } from '../atomFunction/inpuCheck';
 export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday,totalAmount}) => {
   //税金合計額出すためにどうしてもステート管理しなければならなかった
   const[rowAmountValue,setRwoAmountValue] = useState("0");
+  const [favoStartTrain,setFavoStartTrain] = useState("");
+  const [favoEndTrain,setEndTrain] = useState("");
   const { isOpen, onToggle, onClose } = useDisclosure()
   // 二個目のオブジェクトに情報を詰める為に、kaikeiMonthの値が変動してから入れる方法しかなかった
   useEffect(()=>{
@@ -45,21 +47,17 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
   }
   const inputFee = (e)=>{
     if(inpuctCheck(e)){
-      return
-    }
-    addForom.fee = e.target.value
-    if(addForom.tax === ""){
-        return 
+      addForom.fee = 0;
+    }else {
+      addForom.fee = e.target.value
     }
     rowAmount();
   }
   const inputTax = (e)=>{
     if(inpuctCheck(e)){
-      return
-    }
-    addForom.tax = e.target.value
-    if(addForom.fee === ""){
-        return 
+      addForom.tax = 0
+    }else {
+      addForom.tax = e.target.value
     }
     rowAmount();
   }
@@ -80,9 +78,9 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
     <label>日</label>
     <br />
     <KinputBr class="br">区間</KinputBr>
-    <KinputTrain type="text" name="startTrain" class="startTrain" onChange={inputStartTrain}/>
+    <KinputTrain type="text" name="startTrain" class="startTrain" onChange={inputStartTrain} value={favoStartTrain}/>
     <span>～</span>
-    <KinputTrain type="text" name="endTrain" class="endTrain" onChange={inputEndTrain}/>
+    <KinputTrain type="text" name="endTrain" class="endTrain" onChange={inputEndTrain} value={favoEndTrain}/>
     <KinputStar  onClick={onToggle}  class="favStar">★</KinputStar>
     <KinputPay name="pay" class="pay" onChange={inputPay}>
         <option value="ic">ICチップ</option>
@@ -110,7 +108,7 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
     <KinputRm class="br labelrm">備考</KinputRm>
     <KinputArea name="remarks" class="remarks" onChange={inputRemarks} />
     <KinputHr />
-        <FavoriteBox isOpen={isOpen} onClose={onClose}></FavoriteBox>
+    <FavoriteBox isOpen={isOpen} onClose={onClose} setFavoStartTrain={setFavoStartTrain} setEndTrain={setEndTrain}></FavoriteBox>
  </div>
 </>
   )
