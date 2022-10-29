@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect,useRef,useState } from 'react'
+import React, { useCallback, useEffect,useRef,useState, } from 'react'
 import {useRecoilValue} from 'recoil'
 import {grovalUserInfo } from '../recoilAtom/userAtom'
 
@@ -9,5 +9,16 @@ export const useInputInfo = (forms)=>{
     const [kaikeiMonth] = useState(timeObj.getMonth()+1);
     const [kaikeiday] = useState(timeObj.getDate());
     const [totalValue,setTotalValue] = useState(0);
-    return [userDate,kaikeiMonth,kaikeiday,totalValue,{setTotalValue}]
+    const ref = useRef();
+    //フォームが増えたときにスクロールするようにマウント時にじっこう
+    useEffect(()=>{
+      scrollButtom(ref)
+    },[forms])
+    return [userDate,kaikeiMonth,kaikeiday,totalValue,ref,{setTotalValue}]
+}
+const scrollButtom = (ref)=>{
+  ref.current.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
 }

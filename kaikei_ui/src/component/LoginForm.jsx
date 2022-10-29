@@ -23,7 +23,9 @@ const loginAction = () =>{
         const q = query(citiesRef, where("id", "==", userId));
         getDocs(q).then((querySnapShot)=>{
             querySnapShot.forEach((doc)=>{
-                setUserDate(doc.data())
+                const uesrData = doc.data();
+                uesrData["docid"] = doc.id
+                setUserDate(uesrData)
             })
             history.push("/select")
         })

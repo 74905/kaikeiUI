@@ -33,8 +33,7 @@ const createdKaikeiObj = ()=>{
     return kaikeiObj
 }
     const [forms,setForms] = useState([createdKaikeiObj(),createdKaikeiObj(),createdKaikeiObj()])
-    const [userDate,kaikeiMonth,kaikeiday,totalValue,{setTotalValue}] = useInputInfo(forms)
-
+    const [userDate,kaikeiMonth,kaikeiday,totalValue,ref,{setTotalValue}] = useInputInfo(forms)
     const totalAmount = ()=>{
       setTotalValue(forms.reduce((sum,form)=>{
         return  sum + form.rowAmount
@@ -50,6 +49,7 @@ const createdKaikeiObj = ()=>{
     <InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdKaikeiObj}></InputAddbutton>
     <InputDeleteButton forms={forms} setForms={setForms}></InputDeleteButton>
     <BuckButton></BuckButton>
+    <div id="bottom-of-list" ref={ref}></div>
     </>
   )
 }

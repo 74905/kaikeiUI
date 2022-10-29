@@ -9,6 +9,8 @@ import { useInputInfo } from '../atomFunction/useInputInfo';
 import { InputAddbutton } from '../atomComponet/InputAddbutton';
 import { InputDeleteButton } from '../atomComponet/InputDeleteButton';
 import { useHistory } from 'react-router-dom';
+import db from '../firebase'
+import { collection, getDocs, doc,query, where, getDoc } from "firebase/firestore/lite";
 
 export const KaikeiInput = memo(() => {
  const history = useHistory()
@@ -32,25 +34,25 @@ const createdKaikeiObj = ()=>{
     return kaikeiObj
 }
 const [forms,setForms] = useState([createdKaikeiObj(),createdKaikeiObj(),createdKaikeiObj()]);
-const [userDate,kaikeiMonth,kaikeiday,totalValue,{setTotalValue}] = useInputInfo(forms)
+const  [favoriteRoutes,setFavoriteRoutes] = useState([]);
+const [userDate,kaikeiMonth,kaikeiday,totalValue,ref,{setTotalValue}] = useInputInfo(forms)
 const [selectValues] = useState([...Array(31)].map((_, i) => i + 1));
 
+//お気に入り経路の取得
+useEffect(()=>{
+ getDocs(collection(db,"actusers",userDate.docid,"favoriteTraions")).then((snapShot)=>{
+const getFavoRoutes =  snapShot.docs.map((doc)=>{
+      const getFavoDoc = {
+        docid: doc.id,
+        favoTrain: doc.data()
+      }
+      return getFavoDoc
+  })
+  setFavoriteRoutes(getFavoRoutes)
+ })
+},[])
 
-  const ref = useRef();
-
-  const scrollButtom = ()=>{
-    ref.current.scrollIntoView({
-      behavior: "smooth",
-      block: "end"
-    });
-  }
-
-  useEffect(()=>{
-    scrollButtom();
-    console.log(forms)
-  },[forms])
-
-  const totalAmount = ()=>{
+const totalAmount = ()=>{
     setTotalValue(forms.reduce((sum,form)=>{
       return  sum + form.rowAmount
     },0))
@@ -68,7 +70,7 @@ return (
 { 
     forms.map((addForom)=>{
         return <KinputForm key={addForom.id} addForom={addForom} selectValues={selectValues} userDate={userDate}
-        kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} totalAmount={totalAmount}></KinputForm> 
+        kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} totalAmount={totalAmount} favoriteRoutes={favoriteRoutes}></KinputForm> 
     })
 }
 <button onClick={()=>{ axios.post('http://localhost:8081/insertKaikei',forms).then(()=> console.log("成功")) }}>登録</button>

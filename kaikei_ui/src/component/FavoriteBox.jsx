@@ -22,14 +22,10 @@ import axios from 'axios'
 import {useRecoilValue} from 'recoil'
 import {grovalUserInfo } from '../recoilAtom/userAtom'
 import { useState } from 'react';
-export const FavoriteBox = ({onClose,isOpen,setFavoStartTrain,setEndTrain}) => {
-  const userDate = useRecoilValue(grovalUserInfo)
-  const  [favoriteRoutes,setFavoriteRoutes] = useState([]);
-  useEffect(()=>{
-    axios.get(`http://localhost:8081/favoriteRoute?userId=${userDate.id}`).then((resolve)=>{
-      setFavoriteRoutes(resolve.data)
-    })
-  },[])
+
+
+
+export const FavoriteBox = ({onClose,isOpen,setFavoStartTrain,setEndTrain,favoriteRoutes}) => {
   const decideTrain = (startTrain,endTrain)=>{
     setFavoStartTrain(startTrain)
     setEndTrain(endTrain)
@@ -48,11 +44,11 @@ export const FavoriteBox = ({onClose,isOpen,setFavoStartTrain,setEndTrain}) => {
     <Tbody>
         {favoriteRoutes.map((favoriteRoute)=>{
                 return ( 
-                  <Tr key={favoriteRoute.ID}>
-                  <Td><KinputStar onClick={()=>decideTrain(favoriteRoute.STARTTRAIN,favoriteRoute.ENDTRAIN)}>👈★</KinputStar></Td>
-                  <Td><Input htmlSize={4} width='auto' defaultValue={favoriteRoute.STARTTRAIN}></Input></Td>
+                  <Tr key={favoriteRoute.docid}>
+                  <Td><KinputStar onClick={()=>decideTrain(favoriteRoute.favoTrain.startTrain,favoriteRoute.favoTrain.endTrain)}>👈★</KinputStar></Td>
+                  <Td><Input htmlSize={4} width='auto' defaultValue={favoriteRoute.favoTrain.startTrain}></Input></Td>
                   <Td>～</Td>
-                  <Td ><Input htmlSize={4} width='auto' defaultValue={favoriteRoute.ENDTRAIN}></Input></Td>
+                  <Td ><Input htmlSize={4} width='auto' defaultValue={favoriteRoute.favoTrain.endTrain}></Input></Td>
                   </Tr>
         )})}
     </Tbody>
