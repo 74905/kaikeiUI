@@ -10,14 +10,6 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
   const [favoStartTrain,setFavoStartTrain] = useState("");
   const [favoEndTrain,setEndTrain] = useState("");
   const { isOpen, onToggle, onClose } = useDisclosure()
-  // 二個目のオブジェクトに情報を詰める為に、kaikeiMonthの値が変動してから入れる方法しかなかった
-  useEffect(()=>{
-    addForom["userId"] = userDate.id;
-    addForom["startMonth"] = kaikeiMonth;
-    addForom["endMonth"] = kaikeiMonth;
-    addForom["startDay"] = "1";
-    addForom["endDay"] = kaikeiday;
-  },[kaikeiMonth])
    const inputMonth = (e)=>{
     if(inpuctCheck(e)){
       return
@@ -32,9 +24,11 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
   }
   const inputStartTrain = (e)=>{
     addForom.startTrain = e.target.value
+    setFavoStartTrain(addForom.startTrain)
   }
   const inputEndTrain = (e)=>{
     addForom.endTrain = e.target.value
+    setEndTrain(addForom.endTrain)
   }
   const inputPay = (e)=>{
     addForom.pay = e.target.value

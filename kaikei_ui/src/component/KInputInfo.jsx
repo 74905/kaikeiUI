@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { isKadousakiInput } from '../recoilAtom/isKadousakiInput';
 import {useRecoilValue} from 'recoil'
 export const KInputInfo = memo(({kaikeiMonth,kaikeiday,userDate,totalValue}) => {
-   const kaikeiFfg = useRecoilValue(isKadousakiInput)
+   const kaikeiflg = useRecoilValue(isKadousakiInput)
     return (
  <>
-    {kaikeiFfg ? <KinputH1><KinputA href="/">Input "会計報告"</KinputA></KinputH1> : <KinputH1><KinputA href="/">Input "稼働先経費申請"</KinputA></KinputH1> }
+    {kaikeiflg ? <KinputH1><KinputA href="/">Input "会計報告"</KinputA></KinputH1> : <KinputH1><KinputA href="/">Input "稼働先経費申請"</KinputA></KinputH1> }
     <KinputTable>
     <tr>
         <KinputTh><label>氏名</label></KinputTh>

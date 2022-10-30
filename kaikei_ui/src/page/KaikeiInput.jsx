@@ -11,6 +11,7 @@ import { InputDeleteButton } from '../atomComponet/InputDeleteButton';
 import { useHistory } from 'react-router-dom';
 import db from '../firebase'
 import { collection, getDocs, doc,query, where, getDoc } from "firebase/firestore/lite";
+import { RegistterButton } from '../atomComponet/RegistterButton';
 
 export const KaikeiInput = memo(() => {
  const history = useHistory()
@@ -23,9 +24,9 @@ const createdKaikeiObj = ()=>{
         startTrain: "",
         endTrain: "",
         tool: "",
-        way: "",
-        days: "",
-        pay: "",
+        way: "oneWay",
+        days: "1",
+        pay: "ic",
         tax: "",
         rowAmount: 0,
         remarks:""
@@ -35,6 +36,7 @@ const createdKaikeiObj = ()=>{
 }
 const [forms,setForms] = useState([createdKaikeiObj(),createdKaikeiObj(),createdKaikeiObj()]);
 const  [favoriteRoutes,setFavoriteRoutes] = useState([]);
+// このカスタムフックを部分的に使おうとするとエラーが吐かれる
 const [userDate,kaikeiMonth,kaikeiday,totalValue,ref,{setTotalValue}] = useInputInfo(forms)
 const [selectValues] = useState([...Array(31)].map((_, i) => i + 1));
 
@@ -73,9 +75,9 @@ return (
         kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} totalAmount={totalAmount} favoriteRoutes={favoriteRoutes}></KinputForm> 
     })
 }
-<button onClick={()=>{ axios.post('http://localhost:8081/insertKaikei',forms).then(()=> console.log("成功")) }}>登録</button>
+<RegistterButton forms={forms} kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} userDate={userDate} totalValue={totalValue}></RegistterButton>
 <BuckButton></BuckButton>
-<InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdKaikeiObj}>+</InputAddbutton>
+<InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdKaikeiObj}></InputAddbutton>
 <InputDeleteButton forms={forms} setForms={setForms}></InputDeleteButton>
 <div id="bottom-of-list" ref={ref}></div>
 </Suspense>

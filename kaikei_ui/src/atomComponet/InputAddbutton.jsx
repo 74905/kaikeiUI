@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Children } from 'react'
 import styled from "styled-components";
 
 //フォーム追加ボタン。アラートとフォームのもとになるオブジェクトの追加を行っている
