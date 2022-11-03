@@ -19,14 +19,14 @@ export const KaikeiInput = memo(() => {
 const createdKaikeiObj = ()=>{
     const kaikeiObj ={
         id: "",
-        moth:"",
+        month:"",
         day: "",
         startTrain: "",
         endTrain: "",
-        tool: "",
         way: "oneWay",
         days: "1",
         pay: "ic",
+        fee: "",
         tax: "",
         rowAmount: 0,
         remarks:""

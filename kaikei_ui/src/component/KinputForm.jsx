@@ -98,6 +98,8 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
     <label>税</label>
     <KinputFeeTaxAomunt type="text" name="tax" class="tax" onChange={inputTax}  />
     <label>合計</label>
+    {// defaultValueはただvalueでいいかも
+     }
     <KinputFeeTaxAomunt key={rowAmountValue} defaultValue={rowAmountValue} type="text" name="rowAmount" class="rowAmount" readOnly/>
     <br />
     <KinputRm class="br labelrm">備考</KinputRm>

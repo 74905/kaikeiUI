@@ -1,0 +1,12 @@
+選択された文字列を編集・削除する
+選択された同じ文字列すべてにカーソルが表示され操作がリンクされますので、一括で編集や削除が行えます。 
+ショートカットキー「Shift + Ctrl + L」で選択した際に、文字列選択の状態ですのでback Spaceで一文字だけ消したいという時もすべて削除されます。
+
+デバッグ
+f5 
+chrome選択
+lanch.jsonを書き換え
+f5を押して起動
+
+参考URL
+https://zenn.dev/rhene/articles/setup-vscode-to-react-debug
