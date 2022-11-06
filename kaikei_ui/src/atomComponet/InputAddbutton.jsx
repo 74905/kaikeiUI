@@ -2,13 +2,13 @@ import React, { Children } from 'react'
 import styled from "styled-components";
 
 //フォーム追加ボタン。アラートとフォームのもとになるオブジェクトの追加を行っている
-export const InputAddbutton = ({forms,setForms,createdKaikeiObj}) => {
+export const InputAddbutton = ({forms,setForms,createdObj}) => {
   const addform = ()=>{
     if(forms.length === 30){
         window.alert("これ以上追加出来ません")
         return
     }
-    setForms([...forms,createdKaikeiObj()])
+    setForms([...forms,createdObj()])
   }
   return (
     <AddButton onClick={addform}>+</AddButton>

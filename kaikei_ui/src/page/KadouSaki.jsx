@@ -41,7 +41,7 @@ const createdkadousakiObj = ()=>{
     {forms.map((form)=>{
         return <KadousakiForm key={form.id} form={form} totalAmount={totalAmount}></KadousakiForm>
     })}
-    <InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdkadousakiObj}></InputAddbutton>
+    <InputAddbutton forms={forms} setForms={setForms} createdObj={createdkadousakiObj}></InputAddbutton>
     <InputDeleteButton forms={forms} setForms={setForms}></InputDeleteButton>
     <RegistterButton forms={forms} kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} userDate={userDate} totalValue={totalValue}></RegistterButton>
     <BuckButton></BuckButton>

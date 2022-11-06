@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {FavoriteBox} from './FavoriteBox'
 import { useDisclosure } from '@chakra-ui/react'
 import { inpuctCheck } from '../atomFunction/inpuCheck';
-export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday,totalAmount,favoriteRoutes}) => {
+export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday,totalAmount,favoriteRoutes,setFavoriteRoutes}) => {
   //税金合計額出すためにどうしてもステート管理しなければならなかった
   const[rowAmountValue,setRwoAmountValue] = useState("0");
   //区間のステート管理のために必要
@@ -105,7 +105,7 @@ export const KinputForm = ({addForom,selectValues,userDate,kaikeiMonth,kaikeiday
     <KinputRm class="br labelrm">備考</KinputRm>
     <KinputArea name="remarks" class="remarks" onChange={inputRemarks} />
     <KinputHr />
-    <FavoriteBox isOpen={isOpen} onClose={onClose} setFavoStartTrain={setFavoStartTrain} setEndTrain={setEndTrain} favoriteRoutes={favoriteRoutes}></FavoriteBox>
+    <FavoriteBox isOpen={isOpen} onClose={onClose} setFavoStartTrain={setFavoStartTrain} setEndTrain={setEndTrain} favoriteRoutes={favoriteRoutes} setFavoriteRoutes={setFavoriteRoutes} userDate={userDate}></FavoriteBox>
  </div>
 </>
   )

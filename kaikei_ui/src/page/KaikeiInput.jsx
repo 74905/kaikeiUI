@@ -44,11 +44,7 @@ const [selectValues] = useState([...Array(31)].map((_, i) => i + 1));
 useEffect(()=>{
  getDocs(collection(db,"actusers",userDate.docid,"favoriteTraions")).then((snapShot)=>{
 const getFavoRoutes =  snapShot.docs.map((doc)=>{
-      const getFavoDoc = {
-        docid: doc.id,
-        favoTrain: doc.data()
-      }
-      return getFavoDoc
+      return doc.data()
   })
   setFavoriteRoutes(getFavoRoutes)
  })
@@ -72,12 +68,12 @@ return (
 { 
     forms.map((addForom)=>{
         return <KinputForm key={addForom.id} addForom={addForom} selectValues={selectValues} userDate={userDate}
-        kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} totalAmount={totalAmount} favoriteRoutes={favoriteRoutes}></KinputForm> 
+        kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} totalAmount={totalAmount} favoriteRoutes={favoriteRoutes} setFavoriteRoutes={setFavoriteRoutes}></KinputForm> 
     })
 }
 <RegistterButton forms={forms} kaikeiMonth={kaikeiMonth} kaikeiday={kaikeiday} userDate={userDate} totalValue={totalValue}></RegistterButton>
 <BuckButton></BuckButton>
-<InputAddbutton forms={forms} setForms={setForms} createdKaikeiObj={createdKaikeiObj}></InputAddbutton>
+<InputAddbutton forms={forms} setForms={setForms} createdObj={createdKaikeiObj}></InputAddbutton>
 <InputDeleteButton forms={forms} setForms={setForms}></InputDeleteButton>
 <div id="bottom-of-list" ref={ref}></div>
 </Suspense>
